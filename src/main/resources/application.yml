@@ -1,0 +1,19 @@
+server:
+  port: 8092
+  servlet:
+    context-path: /property-view
+spring:
+  application:
+    name: hotel
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+  jpa:
+    show-sql: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+    persistAuthorization: true
+  api-docs:
+    path: /v3/api-docs

@@ -1,0 +1,74 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+            http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
+
+    <changeSet id="6-add-index-on-hotel-name" author="aliona">
+        <createIndex indexName="idx_hotel_name" tableName="hotel">
+            <column name="name"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="7-add-index-on-address-hotel-id" author="aliona">
+        <createIndex indexName="idx_address_hotel_id" tableName="address">
+            <column name="hotel_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="8-add-index-on-contacts-hotel-id" author="aliona">
+        <createIndex indexName="idx_contacts_hotel_id" tableName="contacts">
+            <column name="hotel_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="9-add-index-on-arrivaltime-hotel-id" author="aliona">
+        <createIndex indexName="idx_arrivaltime_hotel_id" tableName="arrival_time">
+            <column name="hotel_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="10-add-index-on-hotelamenities-hotel-id" author="aliona">
+        <createIndex indexName="idx_hotelamenities_hotel_id" tableName="hotel_amenities">
+            <column name="hotel_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="11-add-index-on-hotelamenities-amenity-id" author="aliona">
+        <createIndex indexName="idx_hotelamenities_amenity_id" tableName="hotel_amenities">
+            <column name="amenity_id"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="12-add-index-on-hotel-brand" author="aliona">
+        <createIndex indexName="idx_hotel_brand" tableName="hotel">
+            <column name="brand"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="13-add-index-on-address-city" author="aliona">
+        <createIndex indexName="idx_address_city" tableName="address">
+            <column name="city"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="14-add-index-on-address-country" author="aliona">
+        <createIndex indexName="idx_address_country" tableName="address">
+            <column name="country"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="15-add-index-on-amenity-name" author="aliona">
+        <createIndex indexName="idx_amenity_name" tableName="amenity">
+            <column name="name"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="16-add-index-on-hotelamenities" author="aliona">
+        <createIndex indexName="idx_hotelamenities_amenity_hotel" tableName="hotel_amenities" unique="false">
+            <column name="amenity_id"/>
+            <column name="hotel_id"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>
