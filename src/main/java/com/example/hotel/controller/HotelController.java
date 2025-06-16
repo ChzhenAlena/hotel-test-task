@@ -3,7 +3,7 @@ package com.example.hotel.controller;
 import com.example.hotel.dto.HotelCreateRequest;
 import com.example.hotel.dto.HotelDetailsDto;
 import com.example.hotel.dto.HotelShortDto;
-import com.example.hotel.service.external.HotelService;
+import com.example.hotel.service.HotelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

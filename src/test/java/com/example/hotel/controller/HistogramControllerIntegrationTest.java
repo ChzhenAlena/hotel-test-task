@@ -1,12 +1,12 @@
 package com.example.hotel.controller;
 
-import com.example.hotel.entity.Address;
-import com.example.hotel.entity.Amenity;
-import com.example.hotel.entity.ArrivalTime;
-import com.example.hotel.entity.Contacts;
-import com.example.hotel.entity.Hotel;
-import com.example.hotel.repository.AmenityRepository;
-import com.example.hotel.repository.HotelRepository;
+import com.example.hotel.domain.model.Address;
+import com.example.hotel.domain.model.Amenity;
+import com.example.hotel.domain.model.ArrivalTime;
+import com.example.hotel.domain.model.Contacts;
+import com.example.hotel.domain.model.Hotel;
+import com.example.hotel.domain.repository.AmenityDataAccess;
+import com.example.hotel.domain.repository.HotelDataAccess;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,32 +31,32 @@ class HistogramControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private HotelRepository hotelRepository;
+    private HotelDataAccess hotelDataAccess;
 
     @Autowired
-    private AmenityRepository amenityRepository;
+    private AmenityDataAccess amenityDataAccess;
 
     @BeforeEach
     void setUp() {
-        hotelRepository.deleteAll();
-        amenityRepository.deleteAll();
+        hotelDataAccess.deleteAll();
+        amenityDataAccess.deleteAll();
 
-        Amenity wifi = amenityRepository.save(
+        Amenity wifi = amenityDataAccess.save(
                 Amenity.builder()
                         .name("Free WiFi")
                         .build());
 
-        Amenity fitness = amenityRepository.save(
+        Amenity fitness = amenityDataAccess.save(
                 Amenity.builder()
                         .name("Fitness center")
                         .build());
 
-        Amenity business = amenityRepository.save(
+        Amenity business = amenityDataAccess.save(
                 Amenity.builder()
                         .name("Business center")
                         .build());
 
-        amenityRepository.saveAll(List.of(wifi, fitness, business));
+        amenityDataAccess.saveAll(List.of(wifi, fitness, business));
 
         Hotel h1 = Hotel.builder()
                 .name("DoubleTree by Hilton Minsk")
@@ -120,7 +120,7 @@ class HistogramControllerIntegrationTest {
         h2.setArrivalTime(arrivalTime2);
         h2.setAmenities(Set.of(wifi, business));
 
-        hotelRepository.saveAll(List.of(h1, h2));
+        hotelDataAccess.saveAll(List.of(h1, h2));
     }
 
     @Test
@@ -137,6 +137,14 @@ class HistogramControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.Minsk").value(1))
                 .andExpect(jsonPath("$.Moscow").value(1));
+    }
+
+    @Test
+    void getCountryHistogram() throws Exception {
+        mockMvc.perform(get("/histogram/country"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.Belarus").value(1))
+                .andExpect(jsonPath("$.Russia").value(1));
     }
 
     @Test

@@ -1,6 +1,6 @@
 package com.example.hotel.service.strategy;
 
-import com.example.hotel.repository.HotelRepository;
+import com.example.hotel.domain.repository.HotelAnalyticsDataAccess;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AmenitiesHistogramStrategy implements HistogramStrategy {
 
-    private final HotelRepository hotelRepository;
+    private final HotelAnalyticsDataAccess analyticsDataAccess;
 
     @Override
     public boolean supports(String param) {
@@ -19,6 +19,6 @@ public class AmenitiesHistogramStrategy implements HistogramStrategy {
 
     @Override
     public Map<String, Long> getHistogram() {
-        return hotelRepository.countGroupedByAmenities();
+        return analyticsDataAccess.countGroupedByAmenities();
     }
 }

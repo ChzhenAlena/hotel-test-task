@@ -1,7 +1,7 @@
 package com.example.hotel.controller;
 
 import com.example.hotel.dto.HotelShortDto;
-import com.example.hotel.service.external.HotelSearchService;
+import com.example.hotel.service.HotelSearchService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

@@ -1,12 +1,12 @@
 package com.example.hotel.controller;
 
-import com.example.hotel.entity.Address;
-import com.example.hotel.entity.Amenity;
-import com.example.hotel.entity.ArrivalTime;
-import com.example.hotel.entity.Contacts;
-import com.example.hotel.entity.Hotel;
-import com.example.hotel.repository.AmenityRepository;
-import com.example.hotel.repository.HotelRepository;
+import com.example.hotel.domain.model.Address;
+import com.example.hotel.domain.model.Amenity;
+import com.example.hotel.domain.model.ArrivalTime;
+import com.example.hotel.domain.model.Contacts;
+import com.example.hotel.domain.model.Hotel;
+import com.example.hotel.domain.repository.AmenityDataAccess;
+import com.example.hotel.domain.repository.HotelDataAccess;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,18 +31,18 @@ class SearchControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Autowired
-    private HotelRepository hotelRepository;
+    private HotelDataAccess hotelDataAccess;
 
     @Autowired
-    private AmenityRepository amenityRepository;
+    private AmenityDataAccess amenityDataAccess;
 
     @BeforeEach
     void setUp() {
-        hotelRepository.deleteAll();
-        amenityRepository.deleteAll();
+        hotelDataAccess.deleteAll();
+        amenityDataAccess.deleteAll();
 
-        Amenity wifi = amenityRepository.save(Amenity.builder().name("Free WiFi").build());
-        Amenity spa = amenityRepository.save(Amenity.builder().name("Spa").build());
+        Amenity wifi = amenityDataAccess.save(Amenity.builder().name("Free WiFi").build());
+        Amenity spa = amenityDataAccess.save(Amenity.builder().name("Spa").build());
 
         Hotel h1 = Hotel.builder()
                 .name("Hilton Resort")
@@ -100,7 +100,7 @@ class SearchControllerIntegrationTest {
 
         h2.setAmenities(Set.of(wifi));
 
-        hotelRepository.saveAll(List.of(h1, h2));
+        hotelDataAccess.saveAll(List.of(h1, h2));
     }
 
     @Test
